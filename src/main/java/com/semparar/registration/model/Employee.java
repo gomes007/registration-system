@@ -10,8 +10,8 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "employee")
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,11 @@ public class User {
     private boolean retired;
     private String maritalStatus;
     private String otherInformations;
+    private Double salary;
 
     private String [] languages;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
 
 }

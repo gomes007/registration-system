@@ -1,9 +1,9 @@
 package com.semparar.registration.repository;
 
-import com.semparar.registration.model.User;
+import com.semparar.registration.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 }
