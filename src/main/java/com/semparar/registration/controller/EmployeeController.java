@@ -2,7 +2,6 @@ package com.semparar.registration.controller;
 
 import com.semparar.registration.model.Address;
 import com.semparar.registration.model.Employee;
-import com.semparar.registration.repository.AddressRepository;
 import com.semparar.registration.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,20 +23,23 @@ public class EmployeeController {
         return employeeService.listEmployees();
     }
 
+
     /*
     @PostMapping
-    public ResponseEntity<Employee> save(@RequestBody Employee employee){
+    public Employee save(@RequestBody Employee employee){
         return employeeService.saveEmployee(employee);
     }
-*/
+     */
 
 
     @PostMapping
     public ResponseEntity save(@RequestBody Employee employee) {
-        Employee obj = employeeService.saveEmployee(employee);
-        employeeService.saveAddress(obj, obj.getAddress().toArray(new Address[0]));
-        return new ResponseEntity(obj, HttpStatus.CREATED);
+        Employee objEmployee = employeeService.saveEmployee(employee);
+        employeeService.saveAddress(objEmployee, objEmployee.getAddress().toArray(new Address[0]));
+        return new ResponseEntity(objEmployee, HttpStatus.CREATED);
     }
+
+
 
 
 }

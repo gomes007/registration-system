@@ -33,8 +33,8 @@ public class UserService {
     }
 
     @Transactional
-    public void changeRole(Role newRole, String usrename) {
-        userRepository.updateUserRole(usrename, newRole);
+    public void changeRole(Role newRole, String username) {
+        userRepository.updateUserRole(username, newRole);
     }
 
 
