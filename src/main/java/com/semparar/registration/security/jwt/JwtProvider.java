@@ -1,6 +1,7 @@
 package com.semparar.registration.security.jwt;
 
 
+
 import com.semparar.registration.security.UserPrinciple;
 import org.springframework.security.core.Authentication;
 
@@ -15,3 +16,4 @@ public interface JwtProvider {
 
     boolean isTokenValid(HttpServletRequest request);
 }
+

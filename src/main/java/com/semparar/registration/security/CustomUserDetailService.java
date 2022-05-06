@@ -1,8 +1,9 @@
 package com.semparar.registration.security;
 
-import com.semparar.registration.utils.SecurityUtils;
+
 import com.semparar.registration.model.User;
 import com.semparar.registration.service.UserService;
+import com.semparar.registration.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

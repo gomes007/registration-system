@@ -1,6 +1,5 @@
 package com.semparar.registration.controller;
 
-
 import com.semparar.registration.model.User;
 import com.semparar.registration.service.AuthenticationService;
 import com.semparar.registration.service.UserService;
