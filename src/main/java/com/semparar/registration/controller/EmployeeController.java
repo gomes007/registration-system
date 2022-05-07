@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping("api/employee")
 public class EmployeeController {
 
     @Autowired
@@ -38,8 +38,5 @@ public class EmployeeController {
         employeeService.saveAddress(objEmployee, objEmployee.getAddress().toArray(new Address[0]));
         return new ResponseEntity(objEmployee, HttpStatus.CREATED);
     }
-
-
-
 
 }
