@@ -24,6 +24,18 @@ public class EmployeeController {
     }
 
 
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Employee> findId(@PathVariable Long id) {
+
+        Employee obj = employeeService.findId(id);
+
+        return ResponseEntity.ok().body(obj);
+
+    }
+
+
+
     /*
     @PostMapping
     public Employee save(@RequestBody Employee employee){
@@ -37,6 +49,15 @@ public class EmployeeController {
         Employee objEmployee = employeeService.saveEmployee(employee);
         employeeService.saveAddress(objEmployee, objEmployee.getAddress().toArray(new Address[0]));
         return new ResponseEntity(objEmployee, HttpStatus.CREATED);
+    }
+
+
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        return employeeService.findById(id).map(entity -> {
+            employeeService.delete(entity);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }).orElseGet(() -> new ResponseEntity("Registry not found in database", HttpStatus.BAD_REQUEST));
     }
 
 }
