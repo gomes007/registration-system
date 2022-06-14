@@ -5,11 +5,14 @@ import com.semparar.registration.model.Employee;
 import com.semparar.registration.repository.AddressRepository;
 import com.semparar.registration.repository.EmployeeRepository;
 import com.semparar.registration.service.exceptions.ObjctNotFoundException;
+import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.bind.DatatypeConverter;
+import javax.faces.event.FacesEvent;
 import java.util.*;
 
 @Service
@@ -22,9 +25,11 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-/*
+    private Employee employee = new Employee();
+
+    /*
     @Transactional
-    public ResponseEntity<Employee> saveEmployee(Employee employee){
+    public ResponseEntity<Employee> saveEmployee1(Employee employee){
 
         ArrayList<Address> addresses = new ArrayList<>();
 
@@ -40,7 +45,8 @@ public class EmployeeService {
             return ResponseEntity.badRequest().build();
         }
     }
-    */
+     */
+
 
     @Transactional
     public Employee saveEmployee(Employee employee) {
@@ -50,14 +56,16 @@ public class EmployeeService {
 
     @Transactional
     public void saveAddress(Employee employee, Address[] addresses) {
-
         List<Address> items = Arrays.asList(addresses);
-
         items.forEach(address -> {
             address.setEmployee(employee);
             addressRepository.save(address);
         });
+    }
 
+    public void upload(FileUploadEvent image) {
+        String imagem = "data:image/png;base64," + DatatypeConverter.printBase64Binary(image.getFile().getContent());
+        employee.setImagem(imagem);
     }
 
 
@@ -92,3 +100,5 @@ public class EmployeeService {
     }
 
 }
+
+

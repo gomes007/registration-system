@@ -1,5 +1,6 @@
 package com.semparar.registration.security;
 
+import com.semparar.registration.model.Role;
 import com.semparar.registration.security.jwt.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/authentication/**").permitAll()
                 .antMatchers("/api/user/**").permitAll()
                 .antMatchers("/api/employee/**").permitAll()
+                .antMatchers("/api/upload/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

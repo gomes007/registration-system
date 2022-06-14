@@ -30,4 +30,7 @@ public class User {
     @Transient
     private String token;
 
+    @Column(name = "reset_token")
+    private String resetToken;
+
 }

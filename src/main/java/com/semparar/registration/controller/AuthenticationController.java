@@ -36,6 +36,16 @@ public class AuthenticationController {
     }
 
 
+    @PostMapping("/forgot")
+    public  ResponseEntity<String> forgotPassword(@RequestBody User userDTO) {
+        String response = authenticationService.forgotPassword(userDTO);
+        if (response.equals("emailError")){
+            return ResponseEntity.status(400).body("Email não cadastrado.");
+        }
+        else{
+            return ResponseEntity.ok(response);
+        }
+    }
 
 
 }

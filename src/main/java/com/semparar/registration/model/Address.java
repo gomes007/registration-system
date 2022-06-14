@@ -24,7 +24,7 @@ public class Address {
     private String zipCode;
     private String complement;
     private String city;
-    private String State;
+    private String state;
 
     @JsonIgnore
     @ManyToOne

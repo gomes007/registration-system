@@ -7,4 +7,9 @@ public interface AuthenticationService
 {
 
     User signInReturnJWT(User signInRequest);
+
+    String forgotPassword(User userDTO);
 }
+
+
+

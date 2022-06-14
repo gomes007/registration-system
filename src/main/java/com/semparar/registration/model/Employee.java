@@ -1,8 +1,6 @@
 package com.semparar.registration.model;
 
 import lombok.Data;
-
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,19 +15,27 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /*
+    @Embedded
+    private PersonalInformation personalInformation;
+     */
+
     private String name;
     private String email;
     private String cpf;
     private String phone;
     private LocalDateTime birthDate;
-
     private String gender;
+    private String otherInformations;
+
     private boolean retired;
     private String maritalStatus;
-    private String otherInformations;
-    private Double salary;
 
+    private Double salary;
     private String [] languages;
+
+    @Column(columnDefinition = "text")
+    private String imagem;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
