@@ -9,6 +9,9 @@ public interface AuthenticationService
     User signInReturnJWT(User signInRequest);
 
     String forgotPassword(User userDTO);
+
+    String passwordChange(User user);
+
 }
 
 

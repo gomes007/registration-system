@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -33,6 +34,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -64,7 +68,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     helper.setSubject("Recuperação de senha de sua conta " + user.getName());
                     String template = emailTemplate
                             .replace("username", user.getName())
-                            .replace("linkapi","https://minha-loja-web.herokuapp.com/recovery/"+user.getId());
+                            .replace("linkapi","frontend"+user.getId());
                     helper.setText(template, true);
                 } catch (MessagingException e) {
                     e.printStackTrace();
@@ -74,7 +78,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }else{
             return "emailError";
         }
+    }
 
+    @Override
+    public String passwordChange(User user) {
+        User userFound = userRepository.findByUsername(user.getUsername());
+        userFound.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(userFound);
+        return "password changed!";
     }
 
 }

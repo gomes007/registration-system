@@ -47,5 +47,11 @@ public class AuthenticationController {
         }
     }
 
+    @PostMapping("/password-change")
+    public  ResponseEntity<String> passwordChange(@RequestBody User user) {
+        String response = authenticationService.passwordChange(user);
+        return ResponseEntity.ok(response);
+    }
+
 
 }
