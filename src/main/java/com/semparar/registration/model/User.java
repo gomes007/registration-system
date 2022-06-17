@@ -27,6 +27,9 @@ public class User {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    @Column(name = "secret", nullable = true)
+    private String secret;
+
     @Transient
     private String token;
 

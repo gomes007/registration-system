@@ -12,6 +12,8 @@ public interface AuthenticationService
 
     String passwordChange(User user);
 
+    String forgotPasswordSecret(User user);
+
 }
 
 

@@ -35,7 +35,7 @@ public class Employee {
     private String [] languages;
 
     @Column(columnDefinition = "text")
-    private String imagem;
+    private String image;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();

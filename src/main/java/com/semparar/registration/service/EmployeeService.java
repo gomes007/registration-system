@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.bind.DatatypeConverter;
-import javax.faces.event.FacesEvent;
 import java.util.*;
 
 @Service
@@ -65,7 +64,7 @@ public class EmployeeService {
 
     public void upload(FileUploadEvent image) {
         String imagem = "data:image/png;base64," + DatatypeConverter.printBase64Binary(image.getFile().getContent());
-        employee.setImagem(imagem);
+        employee.setImage(imagem);
     }
 
 
