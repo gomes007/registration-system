@@ -58,32 +58,34 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
 
-
     public String forgotPassword(User userDTO) {
         Optional<User> checkIfHas = Optional.ofNullable(userRepository.findByUsername(userDTO.getUsername()));
         String emailTemplate = "<div style=\"height: 100%;display: flex;align-items: center;justify-content: center;background-color: #59b7b7;background-size: auto;\"> <div style=\" width: 640px; margin: 40px auto; padding: 40px; background: #fff; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); text-align: center;\"> <h1 style=\"font-family: sans-serif;\">Recuperação de Senha</h1> <h3 style=\"font-family: sans-serif; font-weight: 100;\">username, clique no botão abaixo para alterar sua senha: </h3> <div style=\"display: block; align-items: center; justify-content: center;cursor: pointer;\"> <a href=\"linkapi\"> <div style=\"background-color: #3f51b5; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;cursor: pointer; border-radius: 10px 10px 10px; box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);font-family: sans-serif; font-weight: 100; \">Recuperar Senha</div> </a> </div></div></div>";
-        if(checkIfHas.isPresent()){
-            checkIfHas.ifPresent(user -> {
-                MimeMessage msg = javaMailSender.createMimeMessage();
-                MimeMessageHelper helper = null;
-                try {
-                    helper = new MimeMessageHelper(msg, true);
-                    helper.setTo(userDTO.getUsername());
-                    helper.setSubject("Recuperação de senha de sua conta " + user.getName());
-                    String template = emailTemplate
-                            .replace("username", user.getName())
-                            .replace("linkapi","http://localhost:3000/recovery?"+"&username="+userDTO.getUsername());
-                    helper.setText(template, true);
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
-                javaMailSender.send(msg);
-            }); return "Email de recuperação enviado com sucesso.";
-        }else{
+        String secret = getRandomString(5);
+        if (checkIfHas.isPresent()) {
+            User signUser = checkIfHas.get();
+            signUser.setSecret(secret);
+            userRepository.save(signUser);
+
+            MimeMessage msg = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = null;
+            try {
+                helper = new MimeMessageHelper(msg, true);
+                helper.setTo(userDTO.getUsername());
+                helper.setSubject("Recuperação de senha de sua conta " + signUser.getName());
+                String template = emailTemplate
+                        .replace("username", signUser.getName())
+                        .replace("linkapi", "http://localhost:3000/recovery?secret=" + secret + "&username=" + signUser.getUsername());
+                helper.setText(template, true);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+            javaMailSender.send(msg);
+            return "Email de recuperação enviado com sucesso.";
+        } else {
             return "emailError";
         }
     }
-
 
 
     public String forgotPasswordSecret(User userDTO) {
@@ -92,36 +94,32 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         String secret = getRandomString(5);
 
-        if(checkIfHas.isPresent()){
+        if (checkIfHas.isPresent()) {
             User signUser = checkIfHas.get();
             signUser.setSecret(secret);
             userRepository.save(signUser);
 
-             return "http://localhost:3000/recovery?secret="+secret+"&username="+userDTO.getUsername();
-        }else{
+            return "http://localhost:3000/recovery?secret=" + secret + "&username=" + userDTO.getUsername();
+        } else {
             return "emailError";
         }
     }
 
 
-
-
     @Override
     public String passwordChange(User user) {
         User userFound = userRepository.findByUsername(user.getUsername());
-        if (user.getSecret()==null){
+        if (user.getSecret() == null) {
             return "missing secret";
         }
-        if (user.getSecret().equals(userFound.getSecret())){
+        if (user.getSecret().equals(userFound.getSecret())) {
             userFound.setPassword(passwordEncoder.encode(user.getPassword()));
+            userFound.setSecret(getRandomString(5));
             userRepository.save(userFound);
             return "password changed!";
         }
         return "incorrect secret!";
     }
-
-
-
 
 
     static String getRandomString(int i) {
@@ -161,9 +159,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // the resulting string
         return thebuffer.toString();
     }
-
-
-
 
 
 }
