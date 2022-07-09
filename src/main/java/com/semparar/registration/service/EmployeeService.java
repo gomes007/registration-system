@@ -1,8 +1,10 @@
 package com.semparar.registration.service;
 
 import com.semparar.registration.model.Address;
+import com.semparar.registration.model.Dependent;
 import com.semparar.registration.model.Employee;
 import com.semparar.registration.repository.AddressRepository;
+import com.semparar.registration.repository.DependentRepository;
 import com.semparar.registration.repository.EmployeeRepository;
 import com.semparar.registration.service.exceptions.ObjctNotFoundException;
 import org.primefaces.event.FileUploadEvent;
@@ -23,6 +25,9 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private DependentRepository dependentRepository;
 
     private Employee employee = new Employee();
 
@@ -62,9 +67,14 @@ public class EmployeeService {
         });
     }
 
-    public void upload(FileUploadEvent image) {
-        String imagem = "data:image/png;base64," + DatatypeConverter.printBase64Binary(image.getFile().getContent());
-        employee.setImage(imagem);
+
+    @Transactional
+    public void saveDependent(Employee employee, Dependent[] dependents) {
+        List<Dependent> items = Arrays.asList(dependents);
+        items.forEach(dependent -> {
+            dependent.setEmployeeKinship(employee);
+            dependentRepository.save(dependent);
+        });
     }
 
 

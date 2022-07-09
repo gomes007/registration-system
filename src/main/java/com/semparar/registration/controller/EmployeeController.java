@@ -1,6 +1,7 @@
 package com.semparar.registration.controller;
 
 import com.semparar.registration.model.Address;
+import com.semparar.registration.model.Dependent;
 import com.semparar.registration.model.Employee;
 import com.semparar.registration.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class EmployeeController {
     public ResponseEntity save(@RequestBody Employee employee) {
         Employee objEmployee = employeeService.saveEmployee(employee);
         employeeService.saveAddress(objEmployee, objEmployee.getAddress().toArray(new Address[0]));
+        employeeService.saveDependent(objEmployee, objEmployee.getDependents().toArray(new Dependent[0]));
         return new ResponseEntity(objEmployee, HttpStatus.CREATED);
     }
 
