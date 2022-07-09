@@ -3,17 +3,11 @@ package com.semparar.registration.service;
 import com.semparar.registration.model.Role;
 import com.semparar.registration.model.User;
 import com.semparar.registration.repository.UserRepository;
-import com.semparar.registration.service.exceptions.ObjctNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
-
 import java.util.Optional;
 
 @Service
