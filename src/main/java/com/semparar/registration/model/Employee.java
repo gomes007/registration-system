@@ -2,6 +2,7 @@ package com.semparar.registration.model;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Employee {
     private String email;
     private String cpf;
     private String phone;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     private String gender;
     private String otherInformations;
 

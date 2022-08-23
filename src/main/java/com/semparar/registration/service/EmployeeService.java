@@ -7,13 +7,11 @@ import com.semparar.registration.repository.AddressRepository;
 import com.semparar.registration.repository.DependentRepository;
 import com.semparar.registration.repository.EmployeeRepository;
 import com.semparar.registration.service.exceptions.ObjctNotFoundException;
-import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.bind.DatatypeConverter;
 import java.util.*;
 
 @Service
@@ -88,10 +86,9 @@ public class EmployeeService {
     }
 
 
-    public Optional<Employee> findById(Long id){
+    public Optional<Employee> findById(Long id) {
         return employeeRepository.findById(id);
     }
-
 
 
     public Employee findId(Long id) {
@@ -103,7 +100,7 @@ public class EmployeeService {
 
 
     @Transactional
-    public void delete(Employee employee){
+    public void delete(Employee employee) {
         Objects.requireNonNull(employee.getId());
         employeeRepository.delete(employee);
     }
