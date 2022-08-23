@@ -9,29 +9,28 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static com.semparar.registration.utils.Constants.UPLOAD_FOLDER;
+import static java.lang.String.format;
+
 @Slf4j
 @Service
 @Profile("local")
 public class LocalFileUploadService implements FileUploadService {
-    private static final String UPLOAD_FOLDER = "uploads/%s";
 
     @Override
     public String upload(final MultipartFile file) {
         try {
-            final String fileName = getDestinationFileName() + getScheme(file);
-            Path destFile = Paths.get(fileName);
+            final String fileName = format("%s%s", System.currentTimeMillis(), getScheme(file));
+            final String filePath = format(UPLOAD_FOLDER, fileName);
+
+            Path destFile = Paths.get(filePath);
             file.transferTo(destFile);
 
-            return String.format("/%s", fileName);
+            return fileName;
         } catch (Exception ex) {
             log.error("Erro ao tentar copiar informações de arquivo");
             return null;
         }
-    }
-
-    private static String getDestinationFileName() {
-        String fileName = "" + System.currentTimeMillis();
-        return String.format(UPLOAD_FOLDER, fileName);
     }
 
     private static String getScheme(MultipartFile file) {
