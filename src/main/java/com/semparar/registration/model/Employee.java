@@ -1,8 +1,9 @@
 package com.semparar.registration.model;
 
 import lombok.Data;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,22 +16,12 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*
+
     @Embedded
     private PersonalInformation personalInformation;
-     */
-
-    private String name;
-    private String email;
-    private String cpf;
-    private String phone;
-    private LocalDateTime birthDate;
-    private String gender;
-    private String otherInformations;
 
     private boolean retired;
     private String maritalStatus;
-
     private Double salary;
     private String [] languages;
 

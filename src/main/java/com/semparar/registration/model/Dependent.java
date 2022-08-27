@@ -17,7 +17,6 @@ public class Dependent {
 
     private String kinship;
 
-
     @Embedded
     private PersonalInformation personalInformation;
 
@@ -26,6 +25,5 @@ public class Dependent {
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employeeKinship;
-
 
 }
