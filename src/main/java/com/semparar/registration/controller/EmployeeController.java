@@ -8,18 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/employee")
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
-
 
 
     @GetMapping
@@ -28,7 +25,8 @@ public class EmployeeController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> findId(@PathVariable Long id) {
         Employee obj = employeeService.findId(id);
         return ResponseEntity.ok().body(obj);

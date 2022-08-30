@@ -5,6 +5,7 @@ import com.semparar.registration.security.jwt.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -44,10 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeHttpRequests()
                 .antMatchers("/api/authentication/**").permitAll()
-                .antMatchers("/api/user/**").permitAll()
-                .antMatchers("/api/employee/**").permitAll()
-                .antMatchers("/api/sale/**").permitAll()
-                .antMatchers("/api/upload/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

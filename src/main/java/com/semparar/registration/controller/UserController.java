@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping("api/user")//pre-path
+@RequestMapping("/api/user")//pre-path
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PutMapping("change/{role}")//api/user/change/{role}
+    @PutMapping("/change/{role}")//api/user/change/{role}
     public ResponseEntity<?> changeRole(@AuthenticationPrincipal UserPrinciple userPrinciple, @PathVariable Role role)
     {
         userService.changeRole(role, userPrinciple.getUsername());
