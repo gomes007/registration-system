@@ -30,7 +30,7 @@ public class LocalFileCleanerService extends FileCleanerBaseService {
             Optional.ofNullable(files).ifPresent(filesRef -> {
                 for (var file : filesRef) {
                     var fileName = file.getName();
-                    if (isValid(fileName) && !this.isAttachedToSomeContext(fileName)) {
+                    if (this.isValid(fileName) && !this.isAttachedToSomeContext(fileName)) {
                         var deleted = file.delete();
                         log.info("deleted file {}: {}", fileName, deleted);
                     }

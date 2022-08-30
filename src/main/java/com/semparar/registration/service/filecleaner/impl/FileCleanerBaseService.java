@@ -3,7 +3,10 @@ package com.semparar.registration.service.filecleaner.impl;
 import com.semparar.registration.service.EmployeeService;
 import com.semparar.registration.service.filecleaner.FileCleanerService;
 
+import java.util.List;
+
 public abstract class FileCleanerBaseService implements FileCleanerService {
+    private static final List<String> INVALID_FILES = List.of(".gitkeep", "default.jpeg");
     private final EmployeeService service;
 
     protected FileCleanerBaseService(final EmployeeService service) {
@@ -30,6 +33,6 @@ public abstract class FileCleanerBaseService implements FileCleanerService {
     }
 
     protected boolean isValid(final String fileName) {
-        return !fileName.equals(".gitkeep");
+        return !INVALID_FILES.contains(fileName);
     }
 }
