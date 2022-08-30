@@ -1,9 +1,9 @@
 package com.semparar.registration.model;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class Employee {
     private String maritalStatus;
 
     private Double salary;
-    private String [] languages;
+    private String[] languages;
 
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
@@ -42,4 +42,5 @@ public class Employee {
     @OneToMany(mappedBy = "employeeKinship", cascade = CascadeType.ALL)
     private List<Dependent> dependents = new ArrayList<>();
 
+    private String profilePhoto;
 }

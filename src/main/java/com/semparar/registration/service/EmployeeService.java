@@ -8,6 +8,7 @@ import com.semparar.registration.repository.DependentRepository;
 import com.semparar.registration.repository.EmployeeRepository;
 import com.semparar.registration.service.exceptions.ObjctNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,6 +106,11 @@ public class EmployeeService {
         employeeRepository.delete(employee);
     }
 
+    public List<String> listEmployeesProfilePhotoReferences(int page, int size) {
+        var request = PageRequest.of(page, size);
+        var result = this.employeeRepository.findAll(request);
+        return result.getContent().stream().map(Employee::getProfilePhoto).toList();
+    }
 }
 
 
