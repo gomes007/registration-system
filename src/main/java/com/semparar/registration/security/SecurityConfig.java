@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeHttpRequests()
                 .antMatchers("/api/authentication/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/files/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -58,8 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     {
         return new JwtAuthorizationFilter();
     }
-
-
 
     @Bean
     public PasswordEncoder passwordEncoder(){
