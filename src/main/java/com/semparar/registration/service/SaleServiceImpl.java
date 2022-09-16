@@ -27,14 +27,16 @@ public class SaleServiceImpl implements SaleService{
         return saleRepository.save(sale);
     }
 
-
     public ResponseEntity<List<Sale>> listSales(){
         try {
-            ArrayList<Sale> sales = (ArrayList<Sale>) saleRepository.findAll();
-            return ResponseEntity.ok(sales);
+            return ResponseEntity.ok(this.findAll());
         } catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    public List<Sale> findAll(){
+        return saleRepository.findAll();
     }
 
     public Optional<Sale> findById(Long id){
